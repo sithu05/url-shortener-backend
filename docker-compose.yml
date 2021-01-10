@@ -1,0 +1,41 @@
+version: '3.7'
+
+services:
+    main:
+        container_name: main
+        build:
+            context: .
+            target: development
+        volumes:
+            - .:/usr/src/app
+            - /usr/src/app/node_modules
+        env_file:
+            - .env
+        ports:
+            - ${PORT}:${PORT}
+        command: npm run start:dev
+        networks:
+            - url-shortener
+        depends_on:
+            - db
+
+    db:
+        container_name: mysql
+        image: mysql:8.0
+        command: --default-authentication-plugin=mysql_native_password
+        restart: always
+        environment:
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_DATABASE: url_shortener
+        ports:
+            - 3306:3306
+        networks:
+            - url-shortener
+        volumes:
+            - url-shortener-data:/var/lib/mysql
+
+networks:
+    url-shortener:
+
+volumes:
+    url-shortener-data:
