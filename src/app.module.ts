@@ -6,11 +6,15 @@ import { AppService } from './app.service';
 
 import configuration from './config/configuration';
 
+import { DatabaseModule } from './database/database.module';
+
 @Module({
 	imports: [
 		ConfigModule.forRoot({
 			load: [configuration],
 		}),
+
+		DatabaseModule,
 	],
 	controllers: [AppController],
 	providers: [AppService],
