@@ -8,6 +8,8 @@ import configuration from './config/configuration';
 
 import { DatabaseModule } from './database/database.module';
 import { AdminsModule } from './admins/admins.module';
+import { AccountsModule } from './accounts/accounts.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
 	imports: [
@@ -17,6 +19,8 @@ import { AdminsModule } from './admins/admins.module';
 
 		DatabaseModule,
 		AdminsModule,
+		AccountsModule,
+		AuthModule,
 	],
 	controllers: [AppController],
 	providers: [AppService],

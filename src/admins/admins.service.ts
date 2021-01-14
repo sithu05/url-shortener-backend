@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { generateUniqueNo } from 'src/utils/misc';
 import { Repository } from 'typeorm';
 import { CreateAdminDto } from './dto/create-admin.dto';
 
@@ -13,6 +14,21 @@ export class AdminsService {
 	) {}
 
 	async create(payload: CreateAdminDto): Promise<Admin> {
-		return this.adminsRepository.create(payload);
+		const admin = new Admin();
+
+		const lastest = await this.adminsRepository
+			.createQueryBuilder('admin')
+			.orderBy('admin.createdAt', 'DESC')
+			.getOne();
+
+		admin.firstName = payload.firstName;
+		admin.lastName = payload.lastName;
+		admin.uniqueNo = generateUniqueNo(lastest?.uniqueNo, 'A');
+
+		return this.adminsRepository.save(admin);
+	}
+
+	async getCounts(): Promise<number> {
+		return this.adminsRepository.count({});
 	}
 }

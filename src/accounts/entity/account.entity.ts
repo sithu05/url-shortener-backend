@@ -6,30 +6,40 @@ import {
 	UpdateDateColumn,
 } from 'typeorm';
 
+import { AccountType, Provider } from '../constants';
+
 @Entity()
-export class Admin {
+export class Account {
 	@PrimaryGeneratedColumn()
 	id: number;
 
 	@Column({
 		length: 50,
 	})
-	firstName: string;
+	email: string;
 
 	@Column({
-		length: 50,
+		type: 'text',
+		select: false,
 	})
-	lastName?: string;
+	password?: string;
 
 	@Column({
-		length: 20,
+		length: '20',
 	})
 	uniqueNo: string;
 
 	@Column({
-		default: true,
+		type: 'enum',
+		enum: Provider,
 	})
-	isActive: boolean;
+	provider: Provider;
+
+	@Column({
+		type: 'enum',
+		enum: AccountType,
+	})
+	accountType: AccountType;
 
 	@CreateDateColumn()
 	createdAt: Date;
