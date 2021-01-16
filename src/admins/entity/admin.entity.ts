@@ -1,7 +1,10 @@
+import { Account } from 'src/accounts/entity/account.entity';
 import {
 	Column,
 	CreateDateColumn,
 	Entity,
+	JoinColumn,
+	OneToMany,
 	PrimaryGeneratedColumn,
 	UpdateDateColumn,
 } from 'typeorm';
@@ -23,8 +26,12 @@ export class Admin {
 
 	@Column({
 		length: 20,
+		unique: true,
 	})
 	uniqueNo: string;
+
+	@OneToMany(() => Account, (account) => account.admin)
+	accounts: Account[];
 
 	@Column({
 		default: true,

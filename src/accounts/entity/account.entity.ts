@@ -1,7 +1,10 @@
+import { Admin } from 'src/admins/entity/admin.entity';
 import {
 	Column,
 	CreateDateColumn,
 	Entity,
+	JoinColumn,
+	ManyToOne,
 	PrimaryGeneratedColumn,
 	UpdateDateColumn,
 } from 'typeorm';
@@ -40,6 +43,13 @@ export class Account {
 		enum: AccountType,
 	})
 	accountType: AccountType;
+
+	@ManyToOne(() => Admin, (admin) => admin.accounts)
+	@JoinColumn({
+		name: 'uniqueNo',
+		referencedColumnName: 'uniqueNo',
+	})
+	admin?: Admin;
 
 	@CreateDateColumn()
 	createdAt: Date;

@@ -45,6 +45,10 @@ export class AccountsService {
 			.getOne();
 	}
 
+	async findById(id: number): Promise<Account> {
+		return this.accountsRepository.findOne(id);
+	}
+
 	// async findOneWithPassword(
 	// 	options: FindOneOptions<Account>,
 	// ): Promise<Account> {

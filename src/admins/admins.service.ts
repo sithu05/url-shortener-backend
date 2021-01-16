@@ -28,6 +28,13 @@ export class AdminsService {
 		return this.adminsRepository.save(admin);
 	}
 
+	async findByUniqueNo(uniqueNo: string): Promise<Admin> {
+		return this.adminsRepository.findOne(
+			{ uniqueNo },
+			{ relations: ['accounts'] },
+		);
+	}
+
 	async getCounts(): Promise<number> {
 		return this.adminsRepository.count({});
 	}
