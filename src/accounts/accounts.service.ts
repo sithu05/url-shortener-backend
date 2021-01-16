@@ -7,7 +7,7 @@ import { CreateAccountDto } from './dto/create-account.dto';
 
 import { Account } from './entity/account.entity';
 
-import { Provider } from './constants';
+import { AccountType, Provider } from './constants';
 
 @Injectable()
 export class AccountsService {
@@ -30,6 +30,24 @@ export class AccountsService {
 			account.password = await hash(payload.password, salt);
 		}
 
-		return this.accountsRepository.save(payload);
+		return this.accountsRepository.save(account);
 	}
+
+	async findOneWithPassword(
+		email: string,
+		accountType: AccountType,
+	): Promise<Account> {
+		return this.accountsRepository
+			.createQueryBuilder('account')
+			.where('account.email = :email', { email })
+			.andWhere('account.accountType = :type', { type: accountType })
+			.addSelect('account.password')
+			.getOne();
+	}
+
+	// async findOneWithPassword(
+	// 	options: FindOneOptions<Account>,
+	// ): Promise<Account> {
+	// 	return this.accountsRepository.findOne(options);
+	// }
 }

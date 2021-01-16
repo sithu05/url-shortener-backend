@@ -1,4 +1,4 @@
-import moment from 'moment';
+import * as moment from 'moment';
 import * as alphanumic from 'alphanum-increment';
 
 export const generateUniqueNo = (uniqueNo: string, prefix = ''): string => {
