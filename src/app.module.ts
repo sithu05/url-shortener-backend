@@ -10,6 +10,7 @@ import { DatabaseModule } from './database/database.module';
 import { AdminsModule } from './admins/admins.module';
 import { AccountsModule } from './accounts/accounts.module';
 import { AuthModule } from './auth/auth.module';
+import { ShortUrlsModule } from './short-urls/short-urls.module';
 
 @Module({
 	imports: [
@@ -21,6 +22,7 @@ import { AuthModule } from './auth/auth.module';
 		AdminsModule,
 		AccountsModule,
 		AuthModule,
+		ShortUrlsModule,
 	],
 	controllers: [AppController],
 	providers: [AppService],
